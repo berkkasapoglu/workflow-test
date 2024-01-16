@@ -1,6 +1,6 @@
 # Commit Convention Dokümantasyonu
 
-Bu dokümantasyon, bir proje içinde commit mesajlarına uygun bir konvansiyon oluşturmak için adımları içermektedir.
+> Bu dokümantasyon, bir proje içinde commit mesajlarına uygun bir konvansiyon oluşturmak için adımları içermektedir.
 
 ## Adım 1: Prettier Kurulumu
 
@@ -8,7 +8,7 @@ Bu dokümantasyon, bir proje içinde commit mesajlarına uygun bir konvansiyon o
 npm install --save-dev --save-exact prettier
 ```
 
-.prettierrc.json dosyasını oluşturun ve aşağaki konfigürasyonları dosyaya yapıştırın.
+`.prettierrc.json` dosyasını oluşturun ve aşağaki konfigürasyonları dosyaya yapıştırın.
 
 ```
 {
@@ -35,7 +35,7 @@ npx eslint --init
 npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks eslint-plugin-react --save-dev
 ```
 
-.eslintrc.json dosyasını oluşturun ve aşağıdaki konfigürasyonları dosyaya yapıştırın.
+`.eslintrc.json` dosyasını oluşturun ve aşağıdaki konfigürasyonları dosyaya yapıştırın.
 
 ```
 {
