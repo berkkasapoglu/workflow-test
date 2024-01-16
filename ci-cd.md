@@ -40,3 +40,37 @@ jobs:
 ```
 
 Repo ayarlarına gidilerek yukarıdaki testlerden geçmediği sürece branchin mergelenmesini engellemek için status check ayarını açın.
+
+# Test Ortamının Hazırlanması
+
+Eğer projeyi create-react-app ile oluşturduysanız aşağıdakileri yapmanıza gerek yoktur.
+
+## Jest Ve Testing Library Kurulumu
+
+```
+npm i @testing-library/jest-dom @testing-library/react @testing-library/user-event
+```
+
+```
+npm i @types/jest --save-dev
+```
+
+## Cypress Kurulumu
+
+```
+npm install cypress --save-dev
+```
+
+Aşağıdaki komutu package.json'a ekleyin.
+
+```
+{
+"scripts": {
+"cypress:open": "cypress open"
+}
+}
+```
+
+```
+npm run cypress:open
+```
