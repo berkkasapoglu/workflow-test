@@ -32,7 +32,7 @@ npx eslint --init
 ---
 
 ```
-npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks --save-dev
+npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks eslint-plugin-react --save-dev
 ```
 
 .eslintrc.json dosyasını oluşturun ve aşağıdaki konfigürasyonları dosyaya yapıştırın.
@@ -55,8 +55,13 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
     "sourceType": "module"
   },
   "plugins": ["@typescript-eslint", "react"],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "rules": {
-     //add customize rules here as per your project's needs
+    //add customize rules here as per your project's needs
   }
 }
 ```
@@ -127,7 +132,13 @@ export default {
 };
 ```
 
-## Adım 8: Eslint Dosyası Oluşturma
+## Adım 8: Precommit Eslint Dosyası Oluşturma
+
+Eğer commit öncesi kontrolü yapılması gerekiyorsa aşağıdaki ek pluginler yüklenir. (e.g. inline styles plugin)
+
+```
+npm i eslint-plugin-no-inline-styles --save-dev
+```
 
 `.pre-commit-eslint.cjs` adında bir dosya oluşturun ve içine sadece commit esnasında çalışacak olan Eslint kurallarını ekleyin. **Örnek:**
 
@@ -137,7 +148,7 @@ module.exports = {
   env: { browser: true, es2020: true },
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["eslint-plugin-no-inline-styles"],
+  plugins: ["eslint-plugin-no-inline-styles", "@typescript-eslint"],
   rules: {
     "no-console": ["error"],
     "no-debugger": "error",
@@ -164,28 +175,14 @@ module.exports = {
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
-      "npx eslint --config .pre-commit-eslint.cjs",
+      "eslint --config .pre-commit-eslint.cjs --no-eslintrc",
       "prettier --write"
     ]
-  }
+  },
 ```
 
-Commit öncesi çalışacak .pre-commit-eslint.cjs dosyasındaki eslint kurallarınız için gerekli olan dependencyleri yükleyin. **Örnek devDependencies:**
+**\--no-eslintrc:** Ana eslint konfigürasyon dosyasını devre dışı bırakır.
 
-```
-  "devDependencies": {
-    "@commitlint/cli": "^18.4.3",
-    "@commitlint/config-conventional": "^18.4.3",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
-    "eslint": "^8.56.0",
-    "eslint-plugin-no-inline-styles": "^1.0.5",
-    "eslint-plugin-react": "^7.33.2",
-    "eslint-plugin-testing-library": "^6.2.0",
-    "eslint-plugin-unused-imports": "^3.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^15.2.0"
-  }
-```
+**prettier --write:** Commit öncesi kodu formatlar.
 
 Bu adımları takip ederek, proje içinde commit mesajlarına uygun bir konvansiyon oluşturmuş olacaksınız.

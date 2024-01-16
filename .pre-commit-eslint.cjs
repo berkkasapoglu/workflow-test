@@ -3,7 +3,7 @@ module.exports = {
   env: { browser: true, es2020: true },
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["eslint-plugin-no-inline-styles"],
+  plugins: ["eslint-plugin-no-inline-styles", "@typescript-eslint"],
   rules: {
     "no-console": ["error"],
     "no-debugger": "error",
