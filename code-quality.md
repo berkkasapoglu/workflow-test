@@ -1,6 +1,6 @@
-# Commit Convention Dokümantasyonu
+# Code-Quality Dokümantasyonu
 
-> Bu dokümantasyon, bir proje içinde commit mesajlarına uygun bir konvansiyon oluşturmak için adımları içermektedir.
+> Bu dokümantasyon, projede kod formatı, kalitesini artırmak ve commit mesajlarında bir düzen oluşturmak için gerekli adımları içermektedir.
 
 ## Adım 1: Prettier Kurulumu
 
@@ -21,7 +21,7 @@ npm install --save-dev --save-exact prettier
 }
 ```
 
-## Adım 1: Eslint Kurulumu
+## Adım 2: Eslint Kurulumu
 
 Eğer prebuild eslint konfigürasyonlarını uygulamak istiyorsanız aşağıdaki komutu çalıştırıp bu adımı atlayabilirsiniz.
 
@@ -66,7 +66,7 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
 }
 ```
 
-## Adım 2: Husky ve lint-staged Kurulumu
+## Adım 3: Husky ve lint-staged Kurulumu
 
 ```
 npm install husky lint-staged --save-dev
@@ -82,7 +82,7 @@ npm install husky lint-staged --save-dev
 npm run husky-install
 ```
 
-## Adım 7: Pre-commit Hook Ayarı
+## Adım 5: Pre-commit Hook Ayarı
 
 Precommit hook'unu eklemek için aşağıdaki komutu çalıştırın.
 
@@ -90,19 +90,19 @@ Precommit hook'unu eklemek için aşağıdaki komutu çalıştırın.
 npx husky add .husky/pre-commit 'npx lint-staged'
 ```
 
-## Adım 5: Commitlint Kurulumu
+## Adım 6: Commitlint Kurulumu
 
 ```
 npm install --save-dev @commitlint/config-conventional @commitlint/cli
 ```
 
-## Adım 3: Commitlint Hook Ayarı
+## Adım 7: Commitlint Hook Ayarı
 
 ```
 npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 ```
 
-## Adım 9: Commitlint Konfigürasyon Dosyası
+## Adım 8: Commitlint Konfigürasyon Dosyası
 
 `.commitlintrc.js` adında bir dosya oluşturun ve içeriğini [commitlint/config-conventional README](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/README.md) linkinden alabilirsiniz. Örnek dosya içeriği:
 
@@ -132,7 +132,7 @@ export default {
 };
 ```
 
-## Adım 8: Precommit Eslint Dosyası Oluşturma
+## Adım 9: Precommit Eslint Dosyası Oluşturma
 
 Eğer commit öncesi kontrolü yapılması gerekiyorsa aşağıdaki ek pluginler yüklenir. (e.g. inline styles plugin)
 
