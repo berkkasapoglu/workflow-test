@@ -4,13 +4,60 @@
 >
 > - Master Branchine merge ve commit öncesi test ve eslint kontrolleri yapılacak.
 
-Package.json'a aşağıdaki script ekleyin.
+Package.json'a aşağıdaki scripti ekleyin.
 
 ```
     "lint": "eslint --config .pre-commit-eslint.cjs --no-eslintrc src/*.{ts,tsx,js,jsx}"
 ```
 
-Aşağıdaki yaml dosyası .github/workflows klasörü oluşturulup içine yapıştırın ve node versiyonunu değiştirin.
+## Jest Ve Testing Library Kurulumu
+
+Eğer projeyi create-react-app ile oluşturduysanız aşağıdakileri yapmanıza gerek yoktur.
+
+```
+npm i @testing-library/jest-dom @testing-library/react @testing-library/user-event
+```
+
+```
+npm i @types/jest --save-dev
+```
+
+## Cypress Kurulumu
+
+```
+npm install cypress --save-dev
+```
+
+Aşağıdaki scripti package.json'a ekleyin ve çalıştırın.
+
+```
+{
+"scripts": {
+"cypress:open": "cypress open"
+}
+}
+```
+
+```
+npm run cypress:open
+```
+
+cypress:open scriptini çalıştırdıktan sonra browser açılacaktır. [Cypress dökümanındaki](https://docs.cypress.io/guides/getting-started/opening-the-app#The-Launchpad) adımları takip ettikten sonra cypress klasörü oluşacaktır. 'cypress' klasörünün altında tsconfig.json dosyası oluşturun ve aşağıdaki kodu yapıştırın.
+
+```
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["es5", "dom"],
+    "types": ["cypress", "node"]
+  },
+  "include": ["**/*.ts"]
+}
+```
+
+## Github Actions Yaml dosyasının hazırlanması
+
+Aşağıdaki yaml dosyası .github/workflows klasörü oluşturulup içine yapıştırın ve dosyadaki node versiyonunu değiştirin.
 
 ```
 name: Code Quality Check
@@ -40,37 +87,3 @@ jobs:
 ```
 
 Repo ayarlarına gidilerek yukarıdaki testlerden geçmediği sürece branchin mergelenmesini engellemek için status check ayarını açın.
-
-# Test Ortamının Hazırlanması
-
-Eğer projeyi create-react-app ile oluşturduysanız aşağıdakileri yapmanıza gerek yoktur.
-
-## Jest Ve Testing Library Kurulumu
-
-```
-npm i @testing-library/jest-dom @testing-library/react @testing-library/user-event
-```
-
-```
-npm i @types/jest --save-dev
-```
-
-## Cypress Kurulumu
-
-```
-npm install cypress --save-dev
-```
-
-Aşağıdaki komutu package.json'a ekleyin.
-
-```
-{
-"scripts": {
-"cypress:open": "cypress open"
-}
-}
-```
-
-```
-npm run cypress:open
-```
