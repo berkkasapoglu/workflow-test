@@ -1,0 +1,24 @@
+name: Code Quality Check
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  code-quality-workflow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: npm ci
+        run: npm ci
+      - name: Test
+        run: npm test
+      - name: Run Lint
+        run: eslint --config .pre-commit-eslint.cjs --no-eslintrc
