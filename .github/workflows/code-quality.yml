@@ -21,4 +21,4 @@ jobs:
       - name: Run Test
         run: npm test
       - name: Run Lint
-        run: npx eslint --config .pre-commit-eslint.cjs --no-eslintrc
+        run: npx lint-staged
