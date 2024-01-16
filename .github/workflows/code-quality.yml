@@ -16,9 +16,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - name: npm ci
-        run: npm ci
-      - name: Test
+      - name: npm i
+        run: npm i
+      - name: Run Test
         run: npm test
       - name: Run Lint
         run: eslint --config .pre-commit-eslint.cjs --no-eslintrc
