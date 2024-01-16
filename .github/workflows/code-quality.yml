@@ -21,4 +21,4 @@ jobs:
       - name: Run Test
         run: npm test
       - name: Run Lint
-        run: npx lint-staged
+        run: npm run lint

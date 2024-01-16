@@ -21,7 +21,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "husky-install": "husky install"
+    "husky-install": "husky install",
+    "lint": "eslint --config .pre-commit-eslint.cjs --no-eslintrc src/*.{ts,tsx,js,jsx}"
   },
   "eslintConfig": {
     "extends": [
