@@ -2,9 +2,64 @@
 
 Bu dokümantasyon, bir proje içinde commit mesajlarına uygun bir konvansiyon oluşturmak için adımları içermektedir.
 
-## Adım 1: Eslint ve Prettier
+## Adım 1: Prettier Kurulumu
 
-Projenizin halihazırda Eslint ve Prettier kurulu olduğunu varsayıyorum 👀️ .
+```
+npm install --save-dev --save-exact prettier
+```
+
+.prettierrc.json dosyasını oluşturun ve aşağaki konfigürasyonları dosyaya yapıştırın.
+
+```
+{
+  "printWidth": 80,
+  "trailingComma": "es5",
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": false,
+  "useTabs": false
+}
+```
+
+## Adım 1: Eslint Kurulumu
+
+Eğer prebuild eslint konfigürasyonlarını uygulamak istiyorsanız aşağıdaki komutu çalıştırıp bu adımı atlayabilirsiniz.
+
+```
+npx eslint --init
+```
+
+---
+
+```
+npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks --save-dev
+```
+
+.eslintrc.json dosyasını oluşturun ve aşağıdaki konfigürasyonları dosyaya yapıştırın.
+
+```
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react"],
+  "rules": {
+     //add customize rules here as per your project's needs
+  }
+}
+```
 
 ## Adım 2: Husky ve lint-staged Kurulumu
 
@@ -74,7 +129,27 @@ export default {
 
 ## Adım 8: Eslint Dosyası Oluşturma
 
-`.pre-commit-eslint.cjs` adında bir dosya oluşturun ve içine sadece commit esnasında çalışacak olan Eslint kurallarını ekleyin.
+`.pre-commit-eslint.cjs` adında bir dosya oluşturun ve içine sadece commit esnasında çalışacak olan Eslint kurallarını ekleyin. **Örnek:**
+
+```javascript
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
+  parser: "@typescript-eslint/parser",
+  plugins: ["eslint-plugin-no-inline-styles"],
+  rules: {
+    "no-console": ["error"],
+    "no-debugger": "error",
+    "no-duplicate-imports": "error",
+    "no-use-before-define": "error",
+    "default-case": "error",
+    "no-inline-styles/no-inline-styles": "error",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+  },
+};
+```
 
 ## Adım 10: package.json Güncelleme
 
