@@ -7,7 +7,7 @@
 Package.json'a aşağıdaki scripti ekleyin.
 
 ```
-    "lint": "eslint --config .pre-commit-eslint.cjs --no-eslintrc src/*.{ts,tsx,js,jsx}"
+    "lint": "eslint --config .pre-commit-eslint.cjs --no-eslintrc src/**/*.{ts,tsx,js,jsx}",
 ```
 
 ## Jest Ve Testing Library Kurulumu
