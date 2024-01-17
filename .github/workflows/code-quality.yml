@@ -16,11 +16,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
-      - name: Run Lint
-        run: npm run lint
       - name: npm i
         run: npm i
+      - name: Run Lint
+        run: npm run lint
       - name: Run Test
         run: npm test
-      - name: Cypress Run
+      - name: Run Cypress
         uses: cypress-io/github-action@v6
