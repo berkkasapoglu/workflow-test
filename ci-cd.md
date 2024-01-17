@@ -33,8 +33,8 @@ Aşağıdaki scripti package.json'a ekleyin ve çalıştırın.
 ```
 {
 "scripts": {
-"cypress:open": "cypress open"
-}
+    "cypress:open": "cypress open"
+ }
 }
 ```
 
@@ -74,7 +74,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node
+      - name: Use Node.js 16.x
         uses: actions/setup-node@v2
         with:
           node-version: 16.x
@@ -82,6 +82,8 @@ jobs:
         run: npm i
       - name: Run Test
         run: npm test
+      - name: Cypress Run
+        uses: cypress-io/github-action@v6
       - name: Run Lint
         run: npm run lint
 ```

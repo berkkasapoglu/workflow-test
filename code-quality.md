@@ -32,7 +32,7 @@ npx eslint --init
 ---
 
 ```
-npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks eslint-plugin-react --save-dev
+npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks eslint-plugin-react eslint-plugin-no-switch-statements --save-dev
 ```
 
 `.eslintrc.json` dosyasını oluşturun ve aşağıdaki konfigürasyonları dosyaya yapıştırın.
@@ -54,13 +54,21 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": [
+    "@typescript-eslint",
+    "react",
+    "only-warn",
+    "no-switch-statements"
+  ],
   "settings": {
     "react": {
       "version": "detect"
     }
   },
   "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
+    "no-switch-statements/no-switch": "error"
     //add customize rules here as per your project's needs
   }
 }
@@ -148,9 +156,13 @@ module.exports = {
   env: { browser: true, es2020: true },
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
-  plugins: ["eslint-plugin-no-inline-styles", "@typescript-eslint"],
+  plugins: [
+    "eslint-plugin-no-inline-styles",
+    "@typescript-eslint",
+    "no-switch-statements",
+  ],
   rules: {
-    "no-console": ["error"],
+    "no-console": "error",
     "no-debugger": "error",
     "no-duplicate-imports": "error",
     "no-use-before-define": "error",
@@ -158,6 +170,7 @@ module.exports = {
     "no-inline-styles/no-inline-styles": "error",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
+    "no-switch-statements/no-switch": "error",
   },
 };
 ```
@@ -185,4 +198,20 @@ module.exports = {
 
 **prettier --write:** Commit öncesi kodu formatlar.
 
-Bu adımları takip ederek, proje içinde commit mesajlarına uygun bir konvansiyon oluşturmuş olacaksınız.
+## Adım 11: Dev Modda Eslint Hatalarını Warning Olarak Gösterme
+
+```
+npm install eslint-plugin-only-warn --save-dev
+```
+
+Ardından .eslintrc.json dosyasındaki pluginlere "only-warn" ekleyin.
+
+```
+"plugins": ["@typescript-eslint", "react", "only-warn"],
+```
+
+spellcheck  dev modda olacak
+
+eslint fix remove unused import and variable on precommit
+
+code coverage test
