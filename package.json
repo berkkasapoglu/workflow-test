@@ -50,8 +50,8 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
-      "eslint --config .pre-commit-eslint.cjs --no-eslintrc",
-      "prettier --write"
+      "prettier --config .husky/.prettierrc.precommit.js --write",
+      "eslint --config .pre-commit-eslint.cjs --no-eslintrc"
     ]
   },
   "devDependencies": {
@@ -69,6 +69,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
-    "prettier": "^3.2.2"
+    "prettier": "^3.2.2",
+    "prettier-plugin-organize-imports": "^3.2.4"
   }
 }

@@ -17,6 +17,6 @@ module.exports = {
     "no-inline-styles/no-inline-styles": "error",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
-    "no-switch-statements/no-switch": "error"
+    "no-switch-statements/no-switch": "error",
   },
 };

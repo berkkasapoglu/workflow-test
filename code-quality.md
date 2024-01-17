@@ -175,7 +175,22 @@ module.exports = {
 };
 ```
 
-## Adım 10: package.json Güncelleme
+## Adım 10: Precommit Prettier Organize Imports
+
+```
+npm install --save-dev prettier-plugin-organize-imports
+```
+
+Bu işlem precommitte yapılacağı için ayrı bir prettier format konfigürasyonu çalışması gerekiyor. O nedenle husky klasörününü içerisine `.prettierrc.precommit.js` dosyası oluşturun ve aşağıdaki kodu yapıştırın.
+
+```
+module.exports = {
+  ...require("../.prettierrc.json"),
+  plugins: ["prettier-plugin-organize-imports"],
+};
+```
+
+## Adım 11: Husky lint-staged package.json Güncelleme
 
 `package.json` dosyasına aşağıdaki husky ve lint-staged konfigürasyonlarını ekleyin:
 
@@ -188,8 +203,8 @@ module.exports = {
   },
   "lint-staged": {
     "src/**/*.{ts,tsx,js,jsx}": [
-      "eslint --config .pre-commit-eslint.cjs --no-eslintrc",
-      "prettier --write"
+      "prettier --config .husky/.prettierrc.precommit.js --write",
+      "eslint --config .pre-commit-eslint.cjs --no-eslintrc"
     ]
   },
 ```
@@ -198,7 +213,7 @@ module.exports = {
 
 **prettier --write:** Commit öncesi kodu formatlar.
 
-## Adım 11: Dev Modda Eslint Hatalarını Warning Olarak Gösterme
+## Adım 12: Dev Modda Eslint Hatalarını Uyarı Olarak Gösterme
 
 ```
 npm install eslint-plugin-only-warn --save-dev
@@ -211,7 +226,5 @@ Ardından .eslintrc.json dosyasındaki pluginlere "only-warn" ekleyin.
 ```
 
 spellcheck  dev modda olacak
-
-eslint fix remove unused import and variable on precommit
 
 code coverage test
