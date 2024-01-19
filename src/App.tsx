@@ -1,5 +1,7 @@
 import "./App.css";
 
+console.log("test");
+
 function App() {
   const label =
     "44444444444444444444444444444444444444444444444444444444444444444445";
