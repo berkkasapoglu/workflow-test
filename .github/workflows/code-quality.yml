@@ -23,9 +23,13 @@ jobs:
       - name: Run Test
         run: npm run test:coverage
       - name: Check Coverage
-        uses: tj-actions/coverage-reporter@v5.1
+        uses: romeovs/lcov-reporter-action@v0.2.16
         with:
-          coverage-command: 'npm run test:coverage'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage/lcov.info
+        # uses: tj-actions/coverage-reporter@v5.1
+        # with:
+        #   coverage-command: 'npm run test:coverage'
           # github-token: ${{ secrets.GITHUB_TOKEN }}
           # lcov-file: ./coverage/lcov.info
       - name: Run Cypress
