@@ -4,10 +4,13 @@
 >
 > - Master Branchine merge ve commit öncesi test ve eslint kontrolleri yapılacak.
 
-Package.json'a aşağıdaki scripti ekleyin.
+Package.json'a aşağıdaki scripts'i ekleyin.
 
 ```
+  "scripts": {
     "lint": "eslint --config .pre-commit-eslint.cjs --no-eslintrc src/**/*.{ts,tsx,js,jsx}",
+    "test:coverage": "CI=true react-scripts test --coverage",
+  },
 ```
 
 ## Jest Ve Testing Library Kurulumu
@@ -57,6 +60,8 @@ cypress:open scriptini çalıştırdıktan sonra browser açılacaktır. [Cypres
 
 ## Github Actions Yaml dosyasının hazırlanması
 
+`Github` -> Repo Settings -> Actions -> General ekranında Workflow permissions ayarını "Read and write permissions" olarak değiştirin.
+
 Aşağıdaki yaml dosyası .github/workflows klasörü oluşturulup içine yapıştırın ve dosyadaki node versiyonunu değiştirin.
 
 ```
@@ -80,12 +85,17 @@ jobs:
           node-version: 16.x
       - name: npm i
         run: npm i
-      - name: Run Test
-        run: npm test
-      - name: Cypress Run
-        uses: cypress-io/github-action@v6
       - name: Run Lint
         run: npm run lint
+      - name: Run Test
+        run: npm run test:coverage
+      - name: Report Coverage
+        uses: tj-actions/coverage-reporter@v5.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          lcov-file: ./coverage/lcov.info
+      - name: Run Cypress
+        uses: cypress-io/github-action@v6
 ```
 
 Repo ayarlarına gidilerek yukarıdaki testlerden geçmediği sürece branchin mergelenmesini engellemek için status check ayarını açın.
