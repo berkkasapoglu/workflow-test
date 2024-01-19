@@ -20,12 +20,11 @@ jobs:
         run: npm i
       - name: Run Lint
         run: npm run lint
-      - name: Run Test
-        run: npm run test:coverage
+      # - name: Run Test
+      #   run: npm run test:coverage
       - name: Report Coverage
         uses: tj-actions/coverage-reporter@v5.1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./coverage/lcov.info
+          coverage-command: 'npm run test:coverage'
       - name: Run Cypress
         uses: cypress-io/github-action@v6

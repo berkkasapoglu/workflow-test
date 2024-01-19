@@ -22,7 +22,7 @@
     "eject": "react-scripts eject",
     "husky-install": "husky install",
     "lint": "eslint --config .pre-commit-eslint.cjs --no-eslintrc src/**/*.{ts,tsx,js,jsx}",
-    "test:coverage": "CI=true react-scripts test --coverage", 
+    "test:coverage": "CI=true react-scripts test --coverage",
     "cypress:open": "cypress open"
   },
   "eslintConfig": {
@@ -54,6 +54,16 @@
       "prettier --config .husky/.prettierrc.precommit.js --write",
       "eslint --config .pre-commit-eslint.cjs --no-eslintrc"
     ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": -10
+      }
+    }
   },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
