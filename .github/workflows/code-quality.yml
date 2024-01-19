@@ -21,11 +21,6 @@ jobs:
       - name: Run Lint
         run: npm run lint
       - name: Run Test
-        run: npm run test:coverage
-      - name: Check Coverage
-        uses: MishaKav/jest-coverage-comment@main
-        with:
-          coverage-summary-path: ./coverage/coverage-final.json
-          title: Coverage Report
+        run: npm test
       - name: Run Cypress
         uses: cypress-io/github-action@v6
