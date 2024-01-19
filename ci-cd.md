@@ -2,7 +2,10 @@
 
 > Bu dokümantasyon, ana branche commit atılmadan önce kodun sağlaması gereken şartların sağlanıp sağlanmadığı kontrol edilmesi için yapılacak adımları içermektedir.
 >
-> - Master Branchine merge ve commit öncesi test ve eslint kontrolleri yapılacak.
+> - Master Branchine merge ve commit öncesi testler ve eslint kontrolleri yapılıyor.
+> - Jest, React Testing Library ve Cypress kullanılıyor.
+>   - Jest ve React Testing Library için package.json dosyasına eklenen coverage thresholdları karşılanmazsa git actionsta hata veriliyor.
+>   - PR merge yorumlarına 'coverage report' ekleniyor.
 
 Package.json'a aşağıdaki scripts'i ekleyin.
 
@@ -60,7 +63,7 @@ Aşağıdaki scripti package.json'a ekleyin ve çalıştırın.
 npm run cypress:open
 ```
 
-cypress:open scriptini çalıştırdıktan sonra browser açılacaktır. [Cypress dökümanındaki](https://docs.cypress.io/guides/getting-started/opening-the-app#The-Launchpad) adımları takip ettikten sonra cypress klasörü oluşacaktır. 'cypress' klasörünün altında tsconfig.json dosyası oluşturun ve aşağıdaki kodu yapıştırın.
+cypress:open scriptini çalıştırdıktan sonra browser açılacaktır. [Cypress dökümanındaki](https://docs.cypress.io/guides/getting-started/opening-the-app#The-Launchpad) adımları takip ettikten sonra cypress klasörü oluşacaktır. `'cypress'` klasörünün altında `tsconfig.json` dosyası oluşturun ve aşağıdaki kodu yapıştırın.
 
 ```
 {
@@ -77,7 +80,7 @@ cypress:open scriptini çalıştırdıktan sonra browser açılacaktır. [Cypres
 
 `Github` Repo Settings -> Actions -> General ekranında Workflow permissions ayarını "Read and write permissions" olarak değiştirin.
 
-Aşağıdaki yaml dosyası .github/workflows klasörü oluşturup içine yapıştırın ve dosyadaki node versiyonunu değiştirin.
+`.[github|gitea]/workflows` klasörü oluşturun. Bu klasörün altında `code-quality.yml` dosyası açıp içine aşağıdaki kodu yapıştırın ve dosyadaki node versiyonunu güncelleyin.
 
 ```
 name: Code Quality Check
