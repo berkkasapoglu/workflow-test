@@ -21,10 +21,13 @@ jobs:
       - name: Run Lint
         run: npm run lint
       - name: Run Test
-        run: npm run test:coverage
-      - name: Report Coverage
-        uses: tj-actions/coverage-reporter@v5.1
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          coverage-command: 'npm run test:coverage'
+          test-script: "npm run test:coverage"
+        # run: npm run test:coverage
+      # - name: Report Coverage
+      #   uses: tj-actions/coverage-reporter@v5.1
+      #   with:
+      #     coverage-command: "npm run test:coverage"
       - name: Run Cypress
         uses: cypress-io/github-action@v6
