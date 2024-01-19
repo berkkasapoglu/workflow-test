@@ -115,7 +115,7 @@ npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 `.commitlintrc.js` adında bir dosya oluşturun ve içeriğini [commitlint/config-conventional README](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/README.md) linkinden alabilirsiniz. Örnek dosya içeriği:
 
 ```javascript
-export default {
+module.exports = {
   extends: ["@commitlint/config-conventional"],
 
   rules: {
@@ -181,7 +181,7 @@ module.exports = {
 npm install --save-dev prettier-plugin-organize-imports
 ```
 
-Bu işlem precommitte yapılacağı için ayrı bir prettier format konfigürasyonu çalışması gerekiyor. O nedenle husky klasörününü içerisine `.prettierrc.precommit.js` dosyası oluşturun ve aşağıdaki kodu yapıştırın.
+Bu işlem precommitte yapılacağı için ayrı bir prettier format konfigürasyonu çalışması gerekiyor. O nedenle `.husky` klasörününü içerisine `.prettierrc.precommit.js` dosyası oluşturun ve aşağıdaki kodu yapıştırın.
 
 ```
 module.exports = {
@@ -222,9 +222,7 @@ npm install eslint-plugin-only-warn --save-dev
 Ardından .eslintrc.json dosyasındaki pluginlere "only-warn" ekleyin.
 
 ```
-"plugins": ["@typescript-eslint", "react", "only-warn"],
+"plugins": ["only-warn"],
 ```
 
 spellcheck  dev modda olacak
-
-code coverage test
