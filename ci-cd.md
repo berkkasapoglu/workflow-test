@@ -103,12 +103,11 @@ jobs:
       - name: Run Lint
         run: npm run lint
       - name: Run Test
-        run: npm run test:coverage
-      - name: Report Coverage
-        uses: tj-actions/coverage-reporter@v5.1
+        uses: ArtiomTr/jest-coverage-report-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          lcov-file: ./coverage/lcov.info
+          skip-step: install
+          test-script: "npm run test:coverage"
+          annotations: failed-tests
       - name: Run Cypress
         uses: cypress-io/github-action@v6
 ```
