@@ -1,6 +1,13 @@
 # Code-Quality Dokümantasyonu
 
 > Bu dokümantasyon, projede kod formatı, kalitesini artırmak ve commit mesajlarında bir düzen oluşturmak için gerekli adımları içermektedir.
+>
+> - Commit öncesi prettier ile koda format atılıyor.
+> - Commit mesaj format kontrolü yapılıyor. (e.g. fix: ..., chore: package.json)
+> - Commit öncesi eslint kontrolünden geçmezse commit hata veriyor. (inline-styles, console, debugger)
+> - Commit öncesi ve dev environment'da çalışan iki adet eslint ve prettier dosyası oluşturulmuş durumda.
+>   - Dev environment'da çalışan eslint her zaman uyarı veriyor. Commit öncesi çalışan eslint belirlenen kurallardan geçmezse hata veriyor ve commit'i iptal ediyor.
+>   - Precommitte çalışan prettier kullanılmayan importları silip sıralıyor.
 
 ## Adım 1: Prettier Kurulumu
 
