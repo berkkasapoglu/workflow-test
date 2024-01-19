@@ -21,9 +21,11 @@ jobs:
       - name: Run Lint
         run: npm run lint
       - name: Run Test
+        run: npm run test:coverage
+      - name: Check Coverage
         uses: ziishaned/jest-reporter-action@v0.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          test-command: npm run test:coverage
+          lcov-file: ./coverage/lcov.info
       - name: Run Cypress
         uses: cypress-io/github-action@v6
