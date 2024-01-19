@@ -23,11 +23,8 @@ jobs:
       - name: Run Test
         uses: ArtiomTr/jest-coverage-report-action@v2
         with:
+          skip-step: install
           test-script: "npm run test:coverage"
-        # run: npm run test:coverage
-      # - name: Report Coverage
-      #   uses: tj-actions/coverage-reporter@v5.1
-      #   with:
-      #     coverage-command: "npm run test:coverage"
+          annotations: failed-tests
       - name: Run Cypress
         uses: cypress-io/github-action@v6
