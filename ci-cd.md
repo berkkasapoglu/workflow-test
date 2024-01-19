@@ -25,6 +25,21 @@ npm i @testing-library/jest-dom @testing-library/react @testing-library/user-eve
 npm i @types/jest --save-dev
 ```
 
+Aşağıdaki kodu package.json dosyasına kopyalayın. Bu coverage değerleri karşılanamazsa git actions başarısız olarak sonuçlanacaktır ve PR merge edilemeyecektir.
+
+```
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 20,
+        "functions": 20,
+        "lines": 20,
+        "statements": -10
+      }
+    }
+  },
+```
+
 ## Cypress Kurulumu
 
 ```
@@ -60,9 +75,9 @@ cypress:open scriptini çalıştırdıktan sonra browser açılacaktır. [Cypres
 
 ## Github Actions Yaml dosyasının hazırlanması
 
-`Github` -> Repo Settings -> Actions -> General ekranında Workflow permissions ayarını "Read and write permissions" olarak değiştirin.
+`Github` Repo Settings -> Actions -> General ekranında Workflow permissions ayarını "Read and write permissions" olarak değiştirin.
 
-Aşağıdaki yaml dosyası .github/workflows klasörü oluşturulup içine yapıştırın ve dosyadaki node versiyonunu değiştirin.
+Aşağıdaki yaml dosyası .github/workflows klasörü oluşturup içine yapıştırın ve dosyadaki node versiyonunu değiştirin.
 
 ```
 name: Code Quality Check
