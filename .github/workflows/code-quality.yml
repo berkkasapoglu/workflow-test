@@ -30,7 +30,7 @@ jobs:
             npm-feature-
             npm-
       - name: npm i
-        run: npm i --legacy-peer-deps
+        run: npm i
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
       - name: npm list
         run: npm list
