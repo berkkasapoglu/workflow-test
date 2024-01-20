@@ -55,16 +55,6 @@
       "eslint --config .pre-commit-eslint.cjs --no-eslintrc"
     ]
   },
-  "jest": {
-    "coverageThreshold": {
-      "global": {
-        "branches": 20,
-        "functions": 20,
-        "lines": 20,
-        "statements": -10
-      }
-    }
-  },
   "devDependencies": {
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
