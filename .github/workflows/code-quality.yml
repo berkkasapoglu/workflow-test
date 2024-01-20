@@ -33,7 +33,6 @@ jobs:
         if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
       - name: npm list
         run: npm list
-        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
       - name: Run Lint
         run: npm run lint
       - name: Run Test
