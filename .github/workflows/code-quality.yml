@@ -26,8 +26,7 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: |
-            npm-feature-${{ hashFiles('package-lock.json') }}
-            npm-feature-
+            npm-${{ hashFiles('package-lock.json') }}
             npm-
       - name: npm i
         run: npm i
