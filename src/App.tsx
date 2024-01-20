@@ -9,7 +9,7 @@ function App() {
       {label}
       <header className="App-header">
         <p>
-          Edit <code>src/App.tsx</code> and save to reload.d
+          Edit <code>src/App.tsx</code> and save to reload.dd
         </p>
         <a
           className="App-link"
