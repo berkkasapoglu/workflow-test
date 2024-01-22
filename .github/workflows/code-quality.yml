@@ -75,11 +75,11 @@ jobs:
           skip-step: install
           test-script: "npm run test:coverage"
           annotations: failed-tests
-        if: ${{ gitea.event_name == 'pull_request' }}
+        if: ${{ github.event_name == 'pull_request' }}
 
       - name: Run Push Test
         run: npm run test:coverage
-        if: ${{ gitea.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' }}
 
       # - name: Run Cypress
       #   uses: cypress-io/github-action@v6
