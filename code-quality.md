@@ -100,6 +100,8 @@ Aşağıdaki kodu `.vscode/tasks.json` dosyasına ekleyin. Bu task çalıştır�
     }
 ```
 
+[https://saisandeepvaddi.com/blog/setup-and-configure-eslint-in-vscode](https://saisandeepvaddi.com/blog/setup-and-configure-eslint-in-vscode)
+
 ## Dev Modda Eslint Hatalarını Uyarı Olarak Gösterme
 
 ```
