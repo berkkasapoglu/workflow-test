@@ -28,7 +28,7 @@ npm install --save-dev prettier
 }
 ```
 
-## Adım 2: Eslint Kurulumu
+## Eslint Kurulumu
 
 Eğer prebuild eslint konfigürasyonlarını uygulamak istiyorsanız aşağıdaki komutu çalıştırıp bu adımı atlayabilirsiniz.
 
