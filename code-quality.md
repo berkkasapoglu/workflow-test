@@ -9,10 +9,10 @@
 >   - Dev environment'da çalışan eslint her zaman uyarı veriyor. Commit öncesi çalışan eslint belirlenen kurallardan geçmezse hata veriyor ve commit'i iptal ediyor.
 >   - Precommitte çalışan prettier kullanılmayan importları silip sıralıyor.
 
-## Adım 1: Prettier Kurulumu
+## Prettier Kurulumu
 
 ```
-npm install --save-dev --save-exact prettier
+npm install --save-dev prettier
 ```
 
 `.prettierrc.json` dosyasını oluşturun ve aşağaki konfigürasyonları dosyaya yapıştırın.
@@ -81,13 +81,36 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
 }
 ```
 
-## Adım 3: Husky ve lint-staged Kurulumu
+Aşağıdaki kodu `.vscode/tasks.json` dosyasına ekleyin. Bu task çalıştırıldığı zaman vscode panelinin problem tabında tüm eslint hataları ve uyarıları görüntülenebilecektir. Çalıştırılmadığı zaman sadece hali hazırda çalışılan sayfalardaki eslint hataları ve uyarıları görüntülenebilecektir.
+
+```
+    {
+      "label": "ESLint",
+      "type": "shell",
+      "problemMatcher": "$eslint-stylish",
+      "command": "npm run eslint:show-all"
+    }
+```
+
+## Dev Modda Eslint Hatalarını Uyarı Olarak Gösterme
+
+```
+npm install eslint-plugin-only-warn --save-dev
+```
+
+Ardından .eslintrc.json dosyasındaki pluginlere "only-warn" ekleyin.
+
+```
+"plugins": ["only-warn"],
+```
+
+## Husky ve lint-staged Kurulumu
 
 ```
 npm install husky lint-staged --save-dev
 ```
 
-## Adım 4: package.json Ayarı
+## package.json Ayarı
 
 `package.json` dosyasında `scripts` objesinin içine aşağıdaki satırı ekleyin ve bu komutu çalıştırın.
 
@@ -97,7 +120,7 @@ npm install husky lint-staged --save-dev
 npm run husky-install
 ```
 
-## Adım 5: Pre-commit Hook Ayarı
+## Pre-commit Hook Ayarı
 
 Precommit hook'unu eklemek için aşağıdaki komutu çalıştırın.
 
@@ -105,19 +128,19 @@ Precommit hook'unu eklemek için aşağıdaki komutu çalıştırın.
 npx husky add .husky/pre-commit 'npx lint-staged'
 ```
 
-## Adım 6: Commitlint Kurulumu
+## Commitlint Kurulumu
 
 ```
 npm install --save-dev @commitlint/config-conventional @commitlint/cli
 ```
 
-## Adım 7: Commitlint Hook Ayarı
+## Commitlint Hook Ayarı
 
 ```
 npx husky add .husky/commit-msg 'npx --no -- commitlint --edit "$1"'
 ```
 
-## Adım 8: Commitlint Konfigürasyon Dosyası
+## Commitlint Konfigürasyon Dosyası
 
 `.commitlintrc.js` adında bir dosya oluşturun ve içeriğini [commitlint/config-conventional README](https://github.com/conventional-changelog/commitlint/blob/master/%40commitlint/config-conventional/README.md) linkinden alabilirsiniz. Örnek dosya içeriği:
 
@@ -147,9 +170,9 @@ module.exports = {
 };
 ```
 
-## Adım 9: Precommit Eslint Dosyası Oluşturma
+## Precommit Eslint Dosyası Oluşturma
 
-Eğer commit öncesi kontrolü yapılması gerekiyorsa aşağıdaki ek pluginler yüklenir. (e.g. inline styles plugin)
+Eğer commit öncesi kontrol yapılması gerekiyorsa aşağıdaki ek pluginler yüklenir. (e.g. inline styles plugin)
 
 ```
 npm i eslint-plugin-no-inline-styles --save-dev
@@ -182,7 +205,7 @@ module.exports = {
 };
 ```
 
-## Adım 10: Precommit Prettier Organize Imports
+## Precommit Prettier Organize Imports
 
 ```
 npm install --save-dev prettier-plugin-organize-imports
@@ -197,7 +220,7 @@ module.exports = {
 };
 ```
 
-## Adım 11: Husky lint-staged package.json Güncelleme
+## Husky lint-staged package.json Güncelleme
 
 `package.json` dosyasına aşağıdaki husky ve lint-staged konfigürasyonlarını ekleyin:
 
@@ -219,17 +242,5 @@ module.exports = {
 **\--no-eslintrc:** Ana eslint konfigürasyon dosyasını devre dışı bırakır.
 
 **prettier --write:** Commit öncesi kodu formatlar.
-
-## Adım 12: Dev Modda Eslint Hatalarını Uyarı Olarak Gösterme
-
-```
-npm install eslint-plugin-only-warn --save-dev
-```
-
-Ardından .eslintrc.json dosyasındaki pluginlere "only-warn" ekleyin.
-
-```
-"plugins": ["only-warn"],
-```
 
 spellcheck  dev modda olacak
