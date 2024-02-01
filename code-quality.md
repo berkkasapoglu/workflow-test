@@ -81,6 +81,12 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
 }
 ```
 
+Aşağıdaki scripti `package.json` dosyasına ekleyin.
+
+```
+    "eslint:show-all": "eslint src/**/*.ts src/**/*.tsx src/**/*.js"
+```
+
 Aşağıdaki kodu `.vscode/tasks.json` dosyasına ekleyin. Bu task çalıştırıldığı zaman vscode panelinin problem tabında tüm eslint hataları ve uyarıları görüntülenebilecektir. Çalıştırılmadığı zaman sadece hali hazırda çalışılan sayfalardaki eslint hataları ve uyarıları görüntülenebilecektir.
 
 ```
