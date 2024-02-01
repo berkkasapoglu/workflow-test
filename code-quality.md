@@ -67,7 +67,6 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
     "only-warn",
     "no-switch-statements",
     "eslint-plugin-no-inline-styles",
-    "no-inline-styles/no-inline-styles": "warn"
   ],
   "settings": {
     "react": {
@@ -77,7 +76,8 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
-    "no-switch-statements/no-switch": "error"
+    "no-switch-statements/no-switch": "error",
+    "no-inline-styles/no-inline-styles": "warn"
     //add customize rules here as per your project's needs
   }
 }
