@@ -39,7 +39,7 @@ npx eslint --init
 ---
 
 ```
-npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks eslint-plugin-react eslint-plugin-no-switch-statements --save-dev
+npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-react-hooks eslint-plugin-react eslint-plugin-no-switch-statements eslint-plugin-no-inline-styles --save-dev
 ```
 
 `.eslintrc.json` dosyasını oluşturun ve aşağıdaki konfigürasyonları dosyaya yapıştırın.
@@ -65,7 +65,9 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
     "@typescript-eslint",
     "react",
     "only-warn",
-    "no-switch-statements"
+    "no-switch-statements",
+    "eslint-plugin-no-inline-styles",
+    "no-inline-styles/no-inline-styles": "warn"
   ],
   "settings": {
     "react": {
@@ -178,11 +180,7 @@ module.exports = {
 
 ## Precommit Eslint Dosyası Oluşturma
 
-Eğer commit öncesi kontrol yapılması gerekiyorsa aşağıdaki ek pluginler yüklenir. (e.g. inline styles plugin)
-
-```
-npm i eslint-plugin-no-inline-styles --save-dev
-```
+Eğer commit öncesi kontrol yapılması gerekiyorsa eksik olan ek pluginler yüklenir. (e.g. inline styles plugin)
 
 `.pre-commit-eslint.cjs` adında bir dosya oluşturun ve içine sadece commit esnasında çalışacak olan Eslint kurallarını ekleyin. **Örnek:**
 
