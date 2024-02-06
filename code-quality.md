@@ -47,14 +47,14 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
 ```
 {
   "env": {
-    "browser": true,
-    "es2021": true
+    "es2021": true,
+    "browser": true
   },
   "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -66,7 +66,7 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
     "react",
     "only-warn",
     "no-switch-statements",
-    "eslint-plugin-no-inline-styles",
+    "eslint-plugin-no-inline-styles"
   ],
   "settings": {
     "react": {
@@ -77,7 +77,9 @@ npm i eslint @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-p
     "react/react-in-jsx-scope": "off",
     "react/jsx-uses-react": "off",
     "no-switch-statements/no-switch": "error",
-    "no-inline-styles/no-inline-styles": "warn"
+    "no-inline-styles/no-inline-styles": "warn",
+    "react/no-unstable-nested-components": "warn",
+    "react/prop-types": "off"
     //add customize rules here as per your project's needs
   }
 }
@@ -184,29 +186,44 @@ module.exports = {
 
 Eğer commit öncesi kontrol yapılması gerekiyorsa eksik olan ek pluginler yüklenir. (e.g. inline styles plugin)
 
-`.pre-commit-eslint.cjs` adında bir dosya oluşturun ve içine sadece commit esnasında çalışacak olan Eslint kurallarını ekleyin. **Örnek:**
+`.husky` klasörü altında `.eslint.precommit.cjs` adında bir dosya oluşturun ve içine sadece commit esnasında çalışacak olan Eslint kurallarını ekleyin. **Örnek:**
 
 ```javascript
 module.exports = {
   root: true,
   env: { browser: true, es2020: true },
   ignorePatterns: ["dist", ".eslintrc.cjs"],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+  ],
   parser: "@typescript-eslint/parser",
   plugins: [
     "eslint-plugin-no-inline-styles",
     "@typescript-eslint",
     "no-switch-statements",
+    "react",
   ],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
   rules: {
+    "react/react-in-jsx-scope": "off",
+    "react/jsx-uses-react": "off",
     "no-console": "error",
     "no-debugger": "error",
     "no-duplicate-imports": "error",
-    "no-use-before-define": "error",
     "default-case": "error",
     "no-inline-styles/no-inline-styles": "error",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "no-switch-statements/no-switch": "error",
+    "react/no-unstable-nested-components": "error",
+    "react/prop-types": "off",
   },
 };
 ```
@@ -217,7 +234,7 @@ module.exports = {
 npm install --save-dev prettier-plugin-organize-imports
 ```
 
-Bu işlem precommitte yapılacağı için ayrı bir prettier format konfigürasyonu çalışması gerekiyor. O nedenle `.husky` klasörününü içerisine `.prettierrc.precommit.js` dosyası oluşturun ve aşağıdaki kodu yapıştırın.
+Bu işlem precommitte yapılacağı için ayrı bir prettier format konfigürasyonu çalışması gerekiyor. O nedenle `.husky` klasörününü altında `.prettier.precommit.cjs` adında dosya oluşturun ve aşağıdaki kodu yapıştırın.
 
 ```
 module.exports = {
@@ -226,7 +243,52 @@ module.exports = {
 };
 ```
 
-## Husky lint-staged package.json Güncelleme
+## Lint Staged Konfigürasyonu
+
+Aşağıdaki kodu `.lintstagedrc.cjs` dosyası oluşturup içine yapıştırın.
+
+```
+const { ESLint } = require("eslint");
+
+const removeIgnoredFiles = async (files) => {
+  const eslint = new ESLint();
+  const isIgnored = await Promise.all(
+    files.map((file) => {
+      return eslint.isPathIgnored(file);
+    })
+  );
+  const filteredFiles = files.filter((_, i) => !isIgnored[i]);
+  return filteredFiles.join(" ");
+};
+
+
+module.exports = {
+  "src/**/*.{ts,tsx,js,jsx}": async (files) => {
+    const filesToLint = await removeIgnoredFiles(files);
+
+
+    return [
+      filesToLint &&
+        `prettier --config .husky/.prettier.precommit.cjs --write ${filesToLint}`,
+      `eslint --config .husky/.eslint.precommit.cjs --no-eslintrc --max-warnings=0 ${filesToLint}`,
+    ];
+  },
+};
+```
+
+**Bilgi:**
+
+> `.eslintignore` dosyasına eklenen pathler precommitte eslint tarafından uyarı veriyor. (e.g. **0:0  warning  File ignored because of a matching ignore pattern.**)
+>
+> Eğer hiçbir şekilde remote repoya warning veya error atılması istenmiyorsa `--max-warnings=0` flagi eklenir. Fakat bu `.eslintignore` dosyasına eklenen pathler precommitte uyarı verdiği için commit durduruluyor. Bu nedenle yukarıdaki kod ile `.eslintignore` dosyasındaki pathler filtreleniyor. Farklı çözümlere aşağıdaki linkten ulaşabilirsiniz.
+>
+> [https://github.com/lint-staged/lint-staged#how-can-i-ignore-files-from-eslintignore](https://github.com/lint-staged/lint-staged#how-can-i-ignore-files-from-eslintignore)
+
+**\--no-eslintrc:** Ana eslint konfigürasyon dosyasını devre dışı bırakır.
+
+**prettier --write:** Commit öncesi kodu formatlar.
+
+## Husky package.json Güncelleme
 
 `package.json` dosyasına aşağıdaki husky ve lint-staged konfigürasyonlarını ekleyin:
 
@@ -237,16 +299,6 @@ module.exports = {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx}": [
-      "prettier --config .husky/.prettierrc.precommit.js --write",
-      "eslint --config .pre-commit-eslint.cjs --no-eslintrc"
-    ]
-  },
 ```
 
-**\--no-eslintrc:** Ana eslint konfigürasyon dosyasını devre dışı bırakır.
-
-**prettier --write:** Commit öncesi kodu formatlar.
-
-spellcheck  dev modda olacak
+TODO: spellcheck
